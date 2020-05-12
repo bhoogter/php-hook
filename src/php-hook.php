@@ -3,13 +3,13 @@
 class php_hook
 {
 
-    static function is_php_hook($f) { return is_string($f) && substr($f, 0, 4) == "php:"; }
-    static function php_hook_has_args($f) { return self::is_php_hook($f) && strpos($f, ",") !== false; }
-    static function has_args($f) {return self::php_hook_has_args($f);}
-    static function is_hook($f) {return self::is_php_hook($f);}
+    public static function is_php_hook($f) { return is_string($f) && substr($f, 0, 4) == "php:"; }
+    public static function php_hook_has_args($f) { return self::is_php_hook($f) && strpos($f, ",") !== false; }
+    public static function has_args($f) {return self::php_hook_has_args($f);}
+    public static function is_hook($f) {return self::is_php_hook($f);}
     
-    static function call($f) {return self::invoke($f);}
-    function invoke($f, $args = "", $callarray = false)
+    public static function call($f) {return self::invoke($f);}
+    public static function invoke($f, $args = "", $callarray = false)
     {
         //print "<br/>zoSource::php_hook($f, $args)";
         if (!self::is_php_hook($f)) return $f;
