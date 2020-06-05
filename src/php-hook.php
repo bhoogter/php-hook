@@ -2,18 +2,28 @@
 
 class php_hook
 {
+    public const PREFIX = "php:";
 
-    public static function is_php_hook($f) { return is_string($f) && substr($f, 0, 4) == "php:"; }
+    public static function is_php_hook($f) { return is_string($f) && substr($f, 0, 4) == self::PREFIX; }
     public static function php_hook_has_args($f) { return self::is_php_hook($f) && strpos($f, ",") !== false; }
     public static function has_args($f) {return self::php_hook_has_args($f);}
     public static function is_hook($f) {return self::is_php_hook($f);}
+    
+    public static function get_callable($f) {
+        if (!self::is_hook($f)) return null;
+        if (self::has_args($f)) {
+            $S = explode(",", $f);
+            $f = $S[0];
+        }
+        return substr($f, strlen(self::PREFIX));
+    }
     
     public static function call($f) {return self::invoke($f);}
     public static function invoke($f, $args = "", $callarray = false)
     {
         //print "<br/>zoSource::php_hook($f, $args)";
         if (!self::is_php_hook($f)) return $f;
-        $s = substr($f, 4);
+        $s = substr($f, strlen(self::PREFIX));
 
         $S = explode(",", $s);
         $s = $S[0];
