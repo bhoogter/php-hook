@@ -18,7 +18,7 @@ class php_hook
         return substr($f, strlen(self::PREFIX));
     }
     
-    public static function call($f) {return self::invoke($f);}
+    public static function call($f, $args = "", $callarray = false) {return self::invoke($f, $args, $callarray);}
     public static function invoke($f, $args = "", $callarray = false)
     {
         //print "<br/>zoSource::php_hook($f, $args)";
