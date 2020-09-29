@@ -14,6 +14,7 @@ before_deploy:
 - composer install --prefer-dist --no-dev --no-interaction
 - php box.phar build
 deploy:
+  overwrite: true
   provider: releases
   skip_cleanup: true
   file: php-hook.phar
